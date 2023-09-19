@@ -189,7 +189,8 @@ void UMultiplayerSessionsSubsystem::OnStartSessionComplete(FName SessionName, bo
 
 void UMultiplayerSessionsSubsystem::onLoginComplete(int32 localUserNum, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& errorString)
 {
-	multiplayerOnLoginCompleteDelegate.Broadcast(errorString);
+	if(bWasSuccessful)multiplayerOnLoginCompleteDelegate.Broadcast(FString("Login Completed!"));
+	else multiplayerOnLoginCompleteDelegate.Broadcast(errorString);
 }
 
 

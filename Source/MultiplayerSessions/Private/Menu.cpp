@@ -66,10 +66,12 @@ bool UMenu::Initialize()
 	if (HostButton)
 	{
 		HostButton->OnClicked.AddDynamic(this, &UMenu::HostButtonClicked);
+		HostButton->SetIsEnabled(false);
 	}
 	if (JoinButton)
 	{
 		JoinButton->OnClicked.AddDynamic(this, &UMenu::JoinButtonClicked);
+		JoinButton->SetIsEnabled(false);
 	}
 
 
@@ -165,6 +167,11 @@ void UMenu::OnStartSession(bool bWasSuccessful)
 void UMenu::onLoginComplete(FString string)
 {
 	status->SetText(FText::FromString(string));
+	if (string == FString("Login Completed!"))
+	{
+		HostButton->SetIsEnabled(true);
+		JoinButton->SetIsEnabled(true);
+	}
 }
 
 void UMenu::HostButtonClicked()
